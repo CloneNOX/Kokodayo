@@ -1,4 +1,7 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
+<%!
+    
+%>
 <% 
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
@@ -9,15 +12,15 @@
     try 
     {
         Class.forName("com.mysql.cj.jdbc.Driver"); // 查找数据库驱动类
-        Connection con = DriverManager.getConnection(conStr, "root", "YJX20000505");
+        Connection con = DriverManager.getConnection(conStr, "root", "xsr990925,.LOL");
         Statement stmt = con.createStatement(); // 创建MySQL语句的对象
         ResultSet rs = stmt.executeQuery("select materialName,materialType,imgURL from material order by materialOrder");//执行查询，返回结果集
         ArrayList<String> materialLine = new ArrayList<String>();
         while(rs.next()) 
         { 
             materialLine.add(rs.getString("materialName"));
-            materialLine.add(rs.getString("materialType"));
             materialLine.add(rs.getString("imgURL"));
+            materialLine.add(rs.getString("materialType"));
             materials.add((ArrayList<String>)materialLine.clone());
             materialLine.clear();
         }
@@ -29,11 +32,14 @@
     {
         msg = e.getMessage();
     }
-    for(int i = 0;i < materials.size();i++)
-    {
-        for(int j = 0;j < 3;j++)
-            table += (materials.get(i)).get(j).toString();
-    }
+    //m.add("白马醇");
+    //m.add("img/白马醇.png");
+    //m.add("0");
+    //materials.add(m);
+    //({{"白马醇","img/白马醇.png","0"},{"扭转醇","img/扭转醇.png","0"},
+    //                                          {"三水锰矿","img/三水锰矿.png","0"},{"高级作战记录","img/高级作战记录.png","1"},
+    //                                          {"中级作战记录","img/中级作战记录.png","1"},{"近卫芯片组","img/近卫芯片组.png","2"}});
+    //String[][] posts = {{"1"}};
 %>
 <!Doctype html>
 <head>
@@ -52,7 +58,8 @@
             <div id="material">
                 <p>材料</p>
                 <p>
-                    <%for(int i = 0; i < materials.size(); i++) {
+                    <%
+                    for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(2).equals("0")) {
                     %>    
                         <a href='index.jsp'><img src='<%=materials.get(i).get(1)%>'></a>
@@ -60,7 +67,6 @@
                         }
                     }
                     %>
-                    <a href='index.jsp'><img src='img/源岩.png'></a>
                 </p>
                 <p>作战记录</p>
                 <p>
