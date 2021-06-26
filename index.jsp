@@ -1,4 +1,29 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
+<%!
+ArrayList<ArrayList<String>> getMaterialList()
+{
+    static String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
+    Class.forName("com.mysql.cj.jdbc.Driver"); // 查找数据库驱动类
+    Connection con = DriverManager.getConnection(conStr, "root", "YJX20000505");
+    Statement stmt = con.createStatement(); // 创建MySQL语句的对象
+    ResultSet rs = stmt.executeQuery("select materialName,materialType,imgURL from material order by materialOrder");//执行查询，返回结果集
+    ArrayList<ArrayList<String>> material = new ArrayList<>();
+    ArrayList<String> materialLine = new ArrayList<String>();
+    while(rs.next()) 
+    { 
+        materialLine.add(rs.getString("materialName"));
+        materialLine.add(rs.getString("materialType"));
+        materialLine.add(rs.getString("imgURL"));
+        material.add(materialLine);
+        materialLine.clear();
+    }
+    rs.close(); 
+    stmt.close(); 
+    con.close();
+    return material;
+}
+%>
 <% 
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
