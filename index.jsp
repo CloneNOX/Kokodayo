@@ -1,26 +1,52 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
-    String path = request.getContextPath();
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
-    // 查询材料
+    String table = "";
     String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
     + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
-    ArrayList<ArrayList<String>> materials = new ArrayList();
+    ArrayList<ArrayList<String>> materials = new ArrayList<>();
+    ArrayList<ArrayList<String>> guideTitles = new ArrayList<>();
+    ArrayList<ArrayList<String>> communicateTitles = new ArrayList<>();
+    ArrayList<ArrayList<String>> creationTitles = new ArrayList<>();
     try 
     {
         Class.forName("com.mysql.cj.jdbc.Driver"); // 查找数据库驱动类
-        Connection con = DriverManager.getConnection(conStr, "root", "xsr990925,.LOL");
+        Connection con = DriverManager.getConnection(conStr, "root", "YJX20000505");
         Statement stmt = con.createStatement(); // 创建MySQL语句的对象
-        ResultSet rs = stmt.executeQuery("select materialName,materialType,imgURL from material order by materialOrder");//执行查询，返回结果集
-        ArrayList<String> materialLine = new ArrayList<String>();
+        ResultSet rs = stmt.executeQuery("select materialName,materialType,imgURL from material order by materialOrder");
+        ArrayList<String> strLine = new ArrayList<String>();
         while(rs.next()) 
         { 
-            materialLine.add(rs.getString("materialName"));
-            materialLine.add(rs.getString("imgURL"));
-            materialLine.add(rs.getString("materialType"));
-            materials.add((ArrayList<String>)materialLine.clone());
-            materialLine.clear();
+            strLine.add(rs.getString("materialName"));
+            strLine.add(rs.getString("materialType"));
+            strLine.add(rs.getString("imgURL"));
+            materials.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
+        }
+        rs = stmt.executeQuery("select distinct(postId),postTitle from post where postId in (select postId from post group by postId having postType = 0 order by avg(postTime) desc )");
+        while(rs.next()) 
+        { 
+            strLine.add(rs.getString("postId"));
+            strLine.add(rs.getString("postTitle"));
+            guideTitles.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
+        }
+        rs = stmt.executeQuery("select distinct(postId),postTitle from post where postId in (select postId from post group by postId having postType = 1 order by avg(postTime) desc )");
+        while(rs.next()) 
+        { 
+            strLine.add(rs.getString("postId"));
+            strLine.add(rs.getString("postTitle"));
+            communicateTitles.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
+        }
+        rs = stmt.executeQuery("select distinct(postId),postTitle from post where postId in (select postId from post group by postId having postType = 2 order by avg(postTime) desc )");
+        while(rs.next()) 
+        { 
+            strLine.add(rs.getString("postId"));
+            strLine.add(rs.getString("postTitle"));
+            creationTitles.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
         }
         rs.close(); 
         stmt.close(); 
@@ -30,20 +56,16 @@
     {
         msg = e.getMessage();
     }
-    // 查询推荐帖子的标题
-    ArrayList<ArrayList<String>> guideTitles = new ArrayList();
-    for(int i = 0; i < 4; i++) {
-        ArrayList<String> l = new ArrayList();
-        l.add("1");
-        l.add("这是一个post标题的测试");
-        guideTitles.add(l);
+    for(int i = 0;i < materials.size();i++)
+    {
+        for(int j = 0;j < 3;j++)
+            table += (materials.get(i)).get(j).toString() + "<br>";
     }
-    ArrayList<String> l = new ArrayList();
-    l.add("1");
-    l.add("这是一个长长长长长长长长长长post标题的测试");
-    guideTitles.add(l);
-    ArrayList<ArrayList<String>> communicateTitles = new ArrayList(guideTitles);
-    ArrayList<ArrayList<String>> creationTitles = new ArrayList(guideTitles);
+    for(int i = 0;i < guideTitles.size();i++)
+    {
+        for(int j = 0;j < 2;j++)
+            table += (guideTitles.get(i)).get(j).toString() + "<br>";
+    }
 %>
 <!Doctype html>
 <head>
@@ -105,7 +127,7 @@
             <div id="guide">
                 <a class="gotoFileIndex" href='index.jsp'><h2>KoKoDaYo知网<span id="guideTitleSpan">（行了行了，我们知道你又来抄作业了）</span></h2></a>
                 <p>
-                    <%for(int i = 0; i < guideTitles.size(); i++) {
+                    <%for(int i = 0; i < Math.min(guideTitles.size(),5); i++) {
                     %>    
                         <a href='index.jsp'><%=guideTitles.get(i).get(1)%></a><br>
                     <%
@@ -116,7 +138,7 @@
             <div id="communicate">
                 <a class="gotoFileIndex" href='index.jsp'><h2>晨间逸话<span id="communicateTitleSpan">四点几嚟，泡面先啦，来看看别的刀客塔遇到了什么趣事</span></h2></a>
                 <p>
-                    <%for(int i = 0; i < guideTitles.size(); i++) {
+                    <%for(int i = 0; i < Math.min(communicateTitles.size(),5); i++) {
                     %>    
                         <a href='index.jsp'><%=communicateTitles.get(i).get(1)%></a><br>
                     <%
@@ -127,7 +149,7 @@
             <div id="creation">
                 <a class="gotoFileIndex" href='index.jsp'><h2>微型故事集</h2></a>
                 <p>
-                    <%for(int i = 0; i < guideTitles.size(); i++) {
+                    <%for(int i = 0; i < Math.min(creationTitles.size(),5); i++) {
                     %>    
                         <a href='index.jsp'><%=creationTitles.get(i).get(1)%></a><br>
                     <%
