@@ -2,7 +2,6 @@
 <% 
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
-    String table = "";
     String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
     + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
     ArrayList<ArrayList<String>> materials = new ArrayList<>();
@@ -55,16 +54,6 @@
     catch (Exception e)
     {
         msg = e.getMessage();
-    }
-    for(int i = 0;i < materials.size();i++)
-    {
-        for(int j = 0;j < 3;j++)
-            table += (materials.get(i)).get(j).toString() + "<br>";
-    }
-    for(int i = 0;i < guideTitles.size();i++)
-    {
-        for(int j = 0;j < 2;j++)
-            table += (guideTitles.get(i)).get(j).toString() + "<br>";
     }
 %>
 <!Doctype html>
