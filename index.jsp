@@ -12,7 +12,7 @@
     try 
     {
         Class.forName("com.mysql.cj.jdbc.Driver"); // 查找数据库驱动类
-        Connection con = DriverManager.getConnection(conStr, "root", "YJX20000505");
+        Connection con = DriverManager.getConnection(conStr, "root", "xsr990925,.LOL");
         Statement stmt = con.createStatement(); // 创建MySQL语句的对象
         ResultSet rs = stmt.executeQuery("select materialName,materialType,imgURL from material order by materialOrder");
         ArrayList<String> strLine = new ArrayList<String>();
@@ -89,9 +89,9 @@
                 <p>
                     <%
                     for(int i = 0; i < materials.size(); i++) {
-                        if(materials.get(i).get(2).equals("0")) {
+                        if(materials.get(i).get(1).equals("0")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(1)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -100,9 +100,9 @@
                 <p>作战记录</p>
                 <p>
                     <%for(int i = 0; i < materials.size(); i++) {
-                        if(materials.get(i).get(2).equals("1")) {
+                        if(materials.get(i).get(1).equals("1")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(1)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -111,9 +111,9 @@
                 <p>芯片</p>
                 <p>
                     <%for(int i = 0; i < materials.size(); i++) {
-                        if(materials.get(i).get(2).equals("2")) {
+                        if(materials.get(i).get(1).equals("2")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(1)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
