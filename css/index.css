@@ -4,6 +4,7 @@
 body {
     height: 100vh;
     position: relative;
+    overflow: hidden;
 }
 /* 头部 */
 #header {

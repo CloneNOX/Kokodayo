@@ -1,0 +1,59 @@
+/* * {
+    border: solid black;
+} */
+body {
+    height: 100vh;
+    position: relative;
+}
+/* 头部 */
+#header {
+    height: 15vh;
+    width: 98%;
+    box-sizing: border-box;
+    position: relative;
+    border: solid black;
+    border-radius: 24px;
+    margin: 1px 1% 1px 1%;
+    background: rgb(253,229,172);
+    box-shadow: 5px 5px 5px darkgray,
+                0px -2px 2px black inset;
+}
+#home {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+}
+#home img {
+    width: 100px;
+    height: 100px;
+}
+#title {
+    width: 50vw;
+    margin: 10px auto;
+}
+#title h1 {
+    text-align: center;
+    position: relative;
+    font-size: 4em;
+    margin-top: 20px;
+    margin-top: auto;
+    font-family: 'curlz MT';
+}
+#titleKokodayo {
+    position: absolute;
+    width: 256px;
+    height: 256px;
+    right: 0px;
+    bottom: -48px;
+    z-index: 1000;
+}
+
+/* 主体内容 */
+#container {
+    height: 300px;
+    width: 400px;
+    box-sizing: border-box;
+    position: relative;
+    border: solid black;
+    margin: 40px auto;
+}
