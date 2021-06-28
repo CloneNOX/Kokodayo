@@ -1,7 +1,9 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
     request.setCharacterEncoding("utf-8");
+    String jumpToAddMaterial = "./addMaterial.jsp";
     String msg = ""; 
+    String table = "";
     String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
     + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
     ArrayList<ArrayList<String>> materials = new ArrayList<>();
@@ -61,6 +63,11 @@
     <title>Ko~Ko~Da~Yo~（三个失智博士的期末大作业）</title>
     <link rel="stylesheet" type="text/css" href="./css/index.css">
     <style></style>
+    <script>
+        function jump() {
+            window.location.href="<%=jumpToAddMaterial%>";
+        }
+    </script>
 </head>
 <body>
     <div id="header">
@@ -73,6 +80,7 @@
     <div id="container">
         <div id="materialContainer">
             <h1>泰拉数据库--物资</h1>
+            <button id="add" type="button" onclick="jump()">提交作战记录</button>
             <div id="material">
                 <p>材料</p>
                 <p>
@@ -80,7 +88,7 @@
                     for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("0")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -91,7 +99,7 @@
                     <%for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("1")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -102,7 +110,7 @@
                     <%for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("2")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
