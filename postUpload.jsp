@@ -115,8 +115,10 @@
 										query = "insert into kokoFile values("+Integer.toString(fileId)+",\"files/"+name+"\",0)";
 										//out.print(query+"<br>");
 										cnt = stmt.executeUpdate(query);
-										query = "insert into post values("+Integer.toString(postId)+","+id+","+Integer.toString(fileId)+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
+										query = "insert into post values("+Integer.toString(postId)+","+id+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
 										//out.print(query+"<br>");
+										cnt = stmt.executeUpdate(query);
+										query = "insert into postFile values(" + Integer.toString(postId) + "," + Integer.toString(fileId) + ")";
 										cnt = stmt.executeUpdate(query);
 										fileId += 1;
 									}catch( Exception e ){
@@ -147,8 +149,10 @@
 											query = "insert into kokoFile values("+Integer.toString(fileId)+",\"files/"+filename+"\",2)";
 										//out.print(query+"<br>");
 										cnt = stmt.executeUpdate(query);
-										query = "insert into post values("+Integer.toString(postId)+","+id+","+Integer.toString(fileId)+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
+										query = "insert into post values("+Integer.toString(postId)+","+id+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
 										//out.print(query+"<br>");
+										cnt = stmt.executeUpdate(query);
+										query = "insert into postFile values(" + Integer.toString(postId) + "," + Integer.toString(fileId) + ")";
 										cnt = stmt.executeUpdate(query);
 										fileId += 1;
 									}
