@@ -89,45 +89,44 @@
                     rs.close();
                     stmt.close();
                     con.close();
-                }
-                catch( Exception e )
+                    int i=0;
+                    out.print("<h1>"+title+"</h1>");
+                    out.print("<h4>"+userName+"</h4>");
+                    
+                    if( fileList.size()>0&&fileList.get(0).get(1).equals("0") ){
+                        i++;
+                        String direction = application.getRealPath("files") + System.getProperty("file.separator") ;
+                        FileInputStream fis = new FileInputStream( direction + fileList.get(0).get(0) );   
+                        InputStreamReader isr = new InputStreamReader(fis, "UTF-8");   
+                        BufferedReader br = new BufferedReader(isr);   
+                        String result="";
+                        String line = null;   
+                        while ((line = br.readLine()) != null) {   
+                            result += line;   
+                            result += "<br>";  
+                        } 
+                        out.print("<div id=\"textBoarder\">");
+                        out.print("<div id=\"textShow\">"+result+"</div>");
+                        out.print("</div>");
+                        fis.close();
+                        fis = null;
+                        System.gc();
+                    }
+                    out.print("<div id=\"fileShow\">");
+                    for(; i < fileList.size() ; i++ ){
+                        
+                        String fileName=fileList.get(i).get(0);
+                        String fileType=fileList.get(i).get(1);
+                        if(fileType.equals("1"))
+                            out.print("<img src=\"files/" + fileName +"\" /> <br>");
+                        else
+                            out.print("<a href=\"files/" + fileName +"\" >" + fileName + "</a> <br>");
+                    } 
+                    out.print("</div>");
+                }catch( Exception e )
                 {
                     out.print(e.getMessage()+"<br>");
                 }
-                int i=0;
-                out.print("<h1>"+title+"</h1>");
-                out.print("<h4>"+userName+"</h4>");
-                
-                if( fileList.size()>0&&fileList.get(0).get(1).equals("0") ){
-                    i++;
-                    String direction = application.getRealPath("files") + System.getProperty("file.separator") ;
-                    FileInputStream fis = new FileInputStream( direction + fileList.get(0).get(0) );   
-                    InputStreamReader isr = new InputStreamReader(fis, "UTF-8");   
-                    BufferedReader br = new BufferedReader(isr);   
-                    String result="";
-                    String line = null;   
-                    while ((line = br.readLine()) != null) {   
-                        result += line;   
-                        result += "<br>";  
-                    } 
-                    out.print("<div id=\"textBoarder\">");
-                    out.print("<div id=\"textShow\">"+result+"</div>");
-                    out.print("</div>");
-                    fis.close();
-                    fis = null;
-                    System.gc();
-                }
-                out.print("<div id=\"fileShow\">");
-                for(; i < fileList.size() ; i++ ){
-                    
-                    String fileName=fileList.get(i).get(0);
-                    String fileType=fileList.get(i).get(1);
-                    if(fileType.equals("1"))
-                    	out.print("<img src=\"files/" + fileName +"\" /> <br>");
-                    else
-                        out.print("<a href=\"files/" + fileName +"\" >" + fileName + "</a> <br>");
-                } 
-                out.print("</div>");
             }
             else
             {
