@@ -19,11 +19,11 @@
         </div>
     </div>
     <div id="container">
-        <h2>Login</h2>
+        <h2>开始唤醒</h2>
         <div id = "input">
             <form action = "checkLogin.jsp" method="post">
-            UserId: <input type = text name = "userId"> <br><br>
-            Password: <input type = password name = "password"> <br><br>
+            账号: <input type = text name = "userId"> <br><br>
+            密码: <input type = password name = "password"> <br><br>
             <input type = "submit" name = "submit" value = "提交">
             </form>
         </div>
