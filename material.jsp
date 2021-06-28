@@ -1,8 +1,10 @@
-<%@ page language="java" import="java.util.*,java.sql.*,java.sql.Date.*" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" import="java.util.*,java.sql.*,java.Float.*" contentType="text/html; charset=utf-8"%>
 <% 
     String path = request.getContextPath();
     String jumpToAddMaterial = "./report.jsp";
     String chosenMaterial = request.getParameter("materialName");
+    if(chosenMaterial == null)
+        chosenMaterial = "RMA70-24";
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
     // 查询材料
@@ -42,15 +44,19 @@
             strLine.add(rs.getString("missionName"));// 任务名
             strLine.add(rs.getString("missionNum"));// 任务总量
             strLine.add(rs.getString("totalNum"));// 材料总量
-            Float missionNum = Float.parseFloat(rs.getString("missionNum"));
-            Float totalNum = Float.parseFloat(rs.getString("totalNum"));
-            strLine.add(new DecimalFormat("0.00%").format(totalNum / missionNum));// 平均掉落率
-            Float sanity = Float.parseFloat(rs.getString("sanity"));
-            strLine.add(new DecimalFormat("0.00").format(sanity / (totalNum / missionNum)));// 平均理智
+            float missionNum = Float.parseFLoat("18"/*rs.getString("missionNum")*/);
+            float totalNum = Float.parseFLoat("24"/*rs.getString("totalNum")*/);
+            strLine.add(String.format("%.2f", totalNum / missionNum).toString());// 平均掉落率
+            float sanity = Float.parseFLoat(rs.getString("sanity"));
+            strLine.add(String.format("%.2f", sanity / (totalNum / missionNum)).toString());// 平均理智
             strLine.add(rs.getString("sanity"));
             materials.add((ArrayList<String>)strLine.clone());
             strLine.clear();
         }
+    }
+    catch (Exception e)
+    {
+        msg = e.getMessage();
     }
 %>
 <!Doctype html>
@@ -120,7 +126,7 @@
                 <h2><%=chosenMaterial%> 统计结果</h2>
             </div>
             <table id="showerTable">
-
+                <tr><th>作战</th><th></th></tr>
             </table>
             <img id="showerImg" src="./img/skadi_2.png">
         </div>
