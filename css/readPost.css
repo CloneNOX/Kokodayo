@@ -1,10 +1,10 @@
-/* * {
+ /**{
     border: solid black;
 } */
 body {
     height: 100vh;
     position: relative;
-    overflow: hidden;
+    
 }
 /* 头部 */
 #header {
@@ -69,9 +69,54 @@ body {
     margin: 10px auto;
     background: rgba(152,193,210,0.8);
     box-shadow: 5px 5px 5px darkgray;
+
 }
 /* 帖子区标题 */
 
+#textBody {
+    position: relative;
+    width: 75%;
+    min-height: 70vh;
+    padding: 10px;
+    margin: 10px auto;
+    margin-bottom: 10px;
+    border: solid rgb(253,229,172);
+    border-radius: 40px;
+    background: rgba(253,229,172,0.5);
+    box-shadow: 5px 5px 5px darkgray;
+}
+
+#textBody h1{
+    position: relative;
+    left: 5%;
+    top: 0%;
+    width: 90%;
+}
+#textBody h4{
+    position: relative;
+    left: 5%;
+    top: 8%;
+    width: 90%;
+}
+#textBoarder{
+    position: relative;
+    width: 70%;
+    left: 15%;
+    
+}
+#textShow{
+    position: relative;
+    text-align: left;
+    /*overflow-wrap:break-word*/
+}
+#fileShow{
+    position: relative;
+    text-align: center;
+}
+
+#fileShow img{
+    width: 70%;
+}
 .titleBox::-webkit-scrollbar {
     width: 4px;
 }
