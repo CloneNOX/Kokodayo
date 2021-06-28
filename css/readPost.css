@@ -73,6 +73,8 @@ body {
 }
 /* 帖子区标题 */
 
+
+
 #textBody {
     position: relative;
     width: 75%;
@@ -84,6 +86,12 @@ body {
     border-radius: 40px;
     background: rgba(253,229,172,0.5);
     box-shadow: 5px 5px 5px darkgray;
+}
+
+#textBody button{
+    position: relative;
+    left: 5%;
+    top: 0%;
 }
 
 #textBody h1{
@@ -117,6 +125,7 @@ body {
 #fileShow img{
     width: 70%;
 }
+
 .titleBox::-webkit-scrollbar {
     width: 4px;
 }
