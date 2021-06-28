@@ -19,6 +19,13 @@
         </div>
     </div>
     <div id="container">
-        
+        <h2>Login</h2>
+        <div id = "input">
+            <form action = "checkLogin.jsp" method="post">
+            UserId: <input type = text name = "userId"> <br><br>
+            Password: <input type = password name = "password"> <br><br>
+            <input type = "submit" name = "submit" value = "提交">
+            </form>
+        </div>
     </div>   
 </body>
