@@ -37,11 +37,11 @@
                 {
                     Connection con = DriverManager.getConnection(conStr, "user", "123");
                     Statement stmt = con.createStatement();
-                    String query = "select userName from kokoer where userId in ( select userId from post wher postId = " 
+                    String query = "select userName from kokoer where userId in ( select userId from post where postId = " 
                     + postId + ")";
                     ResultSet rs = stmt.executeQuery(query);
                     if(rs.next())
-                        userName = rs.getString("userName")
+                        userName = rs.getString("userName");
                     query = "select postTitle from post where postId = " + postId;
                     rs = stmt.executeQuery(query);
                     if(rs.next())
