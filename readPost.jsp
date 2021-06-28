@@ -8,6 +8,11 @@
 <head>
     <title>Ko~Ko~Da~Yo~（三个失智博士的期末大作业）</title>
     <link rel="stylesheet" type="text/css" href="./css/readPost.css">
+    <script>
+        function jump() {
+				window.location.href="./index.jsp";
+			}
+    </script>
     <style></style>
 </head>
 <body>
@@ -63,9 +68,7 @@
                 {
                     out.print(e.getMessage()+"<br>");
                 }
-            }
-            if(valid)
-            {
+
                 int i=0;
                 out.print("<h1>"+title+"</h1>");
                 out.print("<h4>"+userName+"</h4>");
@@ -100,6 +103,11 @@
                         out.print("<a href="  + fileName + " >" + fileName + "</a> <br>");
                 } 
                 out.print("</div>");
+            }
+            else
+            {
+                out.print("<h1>网页错误，请回到主页!</h1>");
+                out.print("<button id=\"returnIndex\" type=\"button\" onclick=\"jump()\">返回</button>");
             }
         %>
         </div>

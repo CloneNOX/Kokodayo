@@ -131,7 +131,7 @@
 								try{
 									String randomIndex=(r.nextInt(100000)+1)+"";
 									DiskFileItem dfi = (DiskFileItem) fi;
-									filename = randomIndex+ "_" + FilenameUtils.getName(dfi.getName());
+									filename = id + "_" + randomIndex+ "_" + FilenameUtils.getName(dfi.getName());
 									if (!dfi.getName().trim().equals("")){
 										//out.print("文件被上传到服务上的实际位置：");
 										String fileName = application.getRealPath("files")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
@@ -149,9 +149,9 @@
 											query = "insert into kokoFile values("+Integer.toString(fileId)+",\"files/"+filename+"\",2)";
 										//out.print(query+"<br>");
 										cnt = stmt.executeUpdate(query);
-										query = "insert into post values("+Integer.toString(postId)+","+id+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
+										//query = "insert into post values("+Integer.toString(postId)+","+id+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
 										//out.print(query+"<br>");
-										cnt = stmt.executeUpdate(query);
+										//cnt = stmt.executeUpdate(query);
 										query = "insert into postFile values(" + Integer.toString(postId) + "," + Integer.toString(fileId) + ")";
 										cnt = stmt.executeUpdate(query);
 										fileId += 1;
