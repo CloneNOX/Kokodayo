@@ -25,7 +25,7 @@
             { 
                 check = password.equals(rs.getString("userPassword"));
                 userName = rs.getString("userName");
-                backUrl = check ? "./allPost.jsp" : "./login.jsp"
+                backUrl = check ? "./allPost.jsp" : "./login.jsp";
             }
             else
             {
