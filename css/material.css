@@ -56,7 +56,7 @@ body {
     position: relative;
 }
 /*=================================================*/
-/* 材料掉落部分 */
+/* 材料选择框 */
 #selector {
     position: absolute;
     left: 1%;
@@ -128,4 +128,44 @@ body {
 #material p {
     color: white;
     font-size: 1.2em;
+}
+/*=================================================*/
+/* 材料选择框 */
+#shower {
+    position: absolute;
+    right: 1%;
+    top: 1.5%;
+    width: 67%;
+    height: 100%;
+    box-sizing: border-box;
+    border: solid black;
+    border-radius: 4px;
+    background: rgba(18,18,18,0.8);
+    box-shadow: 5px 5px 5px darkgray;
+}
+#showerTitle {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 100%;
+}
+#showerTitleImg {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+}
+#showerTitle h2 {
+    position: absolute;
+    color: white;
+    margin: auto;
+    left: 50px;
+}
+
+#showerImg {
+    position: absolute;
+    width: 512px;
+    height: 512px;
+    right: 0%;
+    bottom: 0%;
+    z-index: -1;
 }
