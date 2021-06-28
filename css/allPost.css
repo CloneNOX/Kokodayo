@@ -121,6 +121,7 @@ body {
     border-radius: 50px;
     background: rgba(255,255,255,0.3);
 }
+
 #guide {
     position: absolute;
     height: 96%;
@@ -162,4 +163,10 @@ body {
     z-index: -1;
     right: 0%;
     bottom: 4%;
+}
+.post {
+    position:relative;
+    left:85%;
+    top:1%;
+    background-color:rgb(76,153,77);
 }
