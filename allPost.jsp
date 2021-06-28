@@ -108,7 +108,7 @@
             <p>
                 <%for(int i = 0; i < communicateTitles.size(); i++) {
                 %>    
-                    <a href='readPost.jsp?pid=<%=guideTitles.get(i).get(0)%>'><%=communicateTitles.get(i).get(1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + communicateTitles.get(i).get(2)%></a><br>
+                    <a href='readPost.jsp?pid=<%=communicateTitles.get(i).get(0)%>'><%=communicateTitles.get(i).get(1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + communicateTitles.get(i).get(2)%></a><br>
                 <%
                 }
                 %>
@@ -120,7 +120,7 @@
             <p>
                 <%for(int i = 0; i < creationTitles.size(); i++) {
                 %>    
-                    <a href='readPost.jsp?pid=<%=guideTitles.get(i).get(0)%>'><%=creationTitles.get(i).get(1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + creationTitles.get(i).get(2)%></a><br>
+                    <a href='readPost.jsp?pid=<%=creationTitles.get(i).get(0)%>'><%=creationTitles.get(i).get(1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + creationTitles.get(i).get(2)%></a><br>
                 <%
                 }
                 %>

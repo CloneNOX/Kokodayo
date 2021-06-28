@@ -32,25 +32,31 @@
             materials.add((ArrayList<String>)strLine.clone());
             strLine.clear();
         }
-        rs = stmt.executeQuery("select distinct(postId),postTitle from post where postId in (select postId from post group by postId having postType = 0 order by avg(postTime) desc )");
+        rs = stmt.executeQuery("select postId,postTitle,postTime from post where postType = 0 order by postTime desc");
         while(rs.next()) 
         { 
+            if(rs == null)
+                break;
             strLine.add(rs.getString("postId"));
             strLine.add(rs.getString("postTitle"));
             guideTitles.add((ArrayList<String>)strLine.clone());
             strLine.clear();
         }
-        rs = stmt.executeQuery("select distinct(postId),postTitle from post where postId in (select postId from post group by postId having postType = 1 order by avg(postTime) desc )");
+        rs = stmt.executeQuery("select postId,postTitle,postTime from post where postType = 1 order by postTime desc");
         while(rs.next()) 
         { 
+            if(rs == null)
+                break;
             strLine.add(rs.getString("postId"));
             strLine.add(rs.getString("postTitle"));
             communicateTitles.add((ArrayList<String>)strLine.clone());
             strLine.clear();
         }
-        rs = stmt.executeQuery("select distinct(postId),postTitle from post where postId in (select postId from post group by postId having postType = 2 order by avg(postTime) desc )");
+        rs = stmt.executeQuery("select postId,postTitle,postTime from post where postType = 2 order by postTime desc");
         while(rs.next()) 
         { 
+            if(rs == null)
+                break;
             strLine.add(rs.getString("postId"));
             strLine.add(rs.getString("postTitle"));
             creationTitles.add((ArrayList<String>)strLine.clone());
@@ -159,7 +165,7 @@
                 <p>
                     <%for(int i = 0; i < Math.min(communicateTitles.size(),5); i++) {
                     %>    
-                        <a href='readPost.jsp?pid=<%=guideTitles.get(i).get(0)%>'><%=communicateTitles.get(i).get(1)%></a><br>
+                        <a href='readPost.jsp?pid=<%=communicateTitles.get(i).get(0)%>'><%=communicateTitles.get(i).get(1)%></a><br>
                     <%
                     }
                     %>
@@ -170,7 +176,7 @@
                 <p>
                     <%for(int i = 0; i < Math.min(creationTitles.size(),5); i++) {
                     %>    
-                        <a href='readPost.jsp?pid=<%=guideTitles.get(i).get(0)%>'><%=creationTitles.get(i).get(1)%></a><br>
+                        <a href='readPost.jsp?pid=<%=creationTitles.get(i).get(0)%>'><%=creationTitles.get(i).get(1)%></a><br>
                     <%
                     }
                     %>

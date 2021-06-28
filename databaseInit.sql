@@ -4,6 +4,7 @@ create database kokodayo18340184
 default character set utf8 
 default collate utf8_general_ci;
 
+use kokodayo18340184;
 create table kokodayo18340184.mission (
 	missionName varchar(10) not null,
     sanity int not null,
@@ -89,9 +90,9 @@ insert into kokodayo18340184.material values
 ("全新装置",0,"img/全新装置.png",14),
 ("装置",0,"img/装置.png",15),
 ("破损装置",0,"img/破损装置.png",16),
-("聚酸脂块",0,"img/聚酸脂块.png",17),
-("聚酸脂组",0,"img/聚酸脂组.png",18),
-("聚酸脂",0,"img/聚酸脂.png",19),
+("聚酸酯块",0,"img/聚酸酯块.png",17),
+("聚酸酯组",0,"img/聚酸酯组.png",18),
+("聚酸酯",0,"img/聚酸酯.png",19),
 ("酯原料",0,"img/酯原料.png",20),
 ("糖聚块",0,"img/糖聚块.png",21),
 ("糖组",0,"img/糖组.png",22),
@@ -168,24 +169,24 @@ insert into kokodayo18340184.kokoer values
 (2,"amiya","doctor",0),
 (3,"throns","yibiliya",0);
 
-insert into kokodayo18340184.kokoFile values
-(1,"file/kroos_text1.txt",0),
-(2,"file/kroos_img1.png",0);
+-- insert into kokodayo18340184.kokoFile values
+-- (1,"file/kroos_text1.txt",0),
+-- (2,"file/kroos_img1.png",0);
 
-insert into kokodayo18340184.post values
-(0,1,0,"Kokodayo",CURRENT_TIMESTAMP()),
-(1,1,0,"hihi",CURRENT_TIMESTAMP()),
-(2,1,0,"kroos",CURRENT_TIMESTAMP()),
-(3,1,0,"hello Dr.Ma",CURRENT_TIMESTAMP()),
-(4,1,0,"me~la~de",CURRENT_TIMESTAMP()),
-(5,2,1,"rhodes",CURRENT_TIMESTAMP()),
-(6,2,1,"Doctor!",CURRENT_TIMESTAMP()),
-(7,2,1,"ocean cat",CURRENT_TIMESTAMP()),
-(8,2,1,"rua",CURRENT_TIMESTAMP()),
-(9,2,1,"mostima",CURRENT_TIMESTAMP()),
-(10,3,2,"suzuran",CURRENT_TIMESTAMP()),
-(11,3,2,"warfarin",CURRENT_TIMESTAMP()),
-(12,3,2,"siege",CURRENT_TIMESTAMP()),
-(13,3,2,"mayer",CURRENT_TIMESTAMP()),
-(14,3,2,"Mi Na",CURRENT_TIMESTAMP()),
-(15,3,2,"lei wa ting!",CURRENT_TIMESTAMP());
+-- insert into kokodayo18340184.post values
+-- (0,1,0,"Kokodayo",CURRENT_TIMESTAMP()),
+-- (1,1,0,"hihi",CURRENT_TIMESTAMP()),
+-- (2,1,0,"kroos",CURRENT_TIMESTAMP()),
+-- (3,1,0,"hello Dr.Ma",CURRENT_TIMESTAMP()),
+-- (4,1,0,"me~la~de",CURRENT_TIMESTAMP()),
+-- (5,2,1,"rhodes",CURRENT_TIMESTAMP()),
+-- (6,2,1,"Doctor!",CURRENT_TIMESTAMP()),
+-- (7,2,1,"ocean cat",CURRENT_TIMESTAMP()),
+-- (8,2,1,"rua",CURRENT_TIMESTAMP()),
+-- (9,2,1,"mostima",CURRENT_TIMESTAMP()),
+-- (10,3,2,"suzuran",CURRENT_TIMESTAMP()),
+-- (11,3,2,"warfarin",CURRENT_TIMESTAMP()),
+-- (12,3,2,"siege",CURRENT_TIMESTAMP()),
+-- (13,3,2,"mayer",CURRENT_TIMESTAMP()),
+-- (14,3,2,"Mi Na",CURRENT_TIMESTAMP()),
+-- (15,3,2,"lei wa ting!",CURRENT_TIMESTAMP());

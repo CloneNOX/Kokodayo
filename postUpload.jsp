@@ -174,9 +174,9 @@
                                         else
                                             out.print("<a href=" + address + filename + " >" + filename + "</a> <br>");*/
                                         if(filename.endsWith(".png")||filename.endsWith(".jpg")||filename.endsWith(".jpeg")||filename.endsWith(".gif")||filename.endsWith(".bmp"))
-                                            query = "insert into kokoFile values("+Integer.toString(fileId)+",\"" + name + "\",1)";
+                                            query = "insert into kokoFile values("+Integer.toString(fileId)+",\"" + filename + "\",1)";
                                         else
-                                            query = "insert into kokoFile values("+Integer.toString(fileId)+",\"" + name + "\",2)";
+                                            query = "insert into kokoFile values("+Integer.toString(fileId)+",\"" + filename + "\",2)";
                                         //out.print(query+"<br>");
                                         cnt = stmt.executeUpdate(query);
                                         //query = "insert into post values("+Integer.toString(postId)+","+id+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";

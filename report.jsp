@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
+    request.setCharacterEncoding("utf-8");
     String uid = (String)session.getAttribute("uid");
     String userName = "";
     boolean login = false;
@@ -8,7 +9,6 @@
     String mission = request.getParameter("mission");
     String material = request.getParameter("material");
     String number = request.getParameter("number");
-    request.setCharacterEncoding("utf-8");
     String msg = ""; 
     //String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
     //              + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
