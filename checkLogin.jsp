@@ -4,7 +4,7 @@
     String userName = "";
     String msg = ""; 
     String userId = "";
-    String backUrl = "./allPost.jsp";
+    String backUrl = "./login.jsp";
     String message = "";
     if(request.getMethod().equalsIgnoreCase("post"))
     {
