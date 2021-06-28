@@ -1,8 +1,54 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
-    String path = request.getContextPath();
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
+    String table = "";
+    String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
+    ArrayList<ArrayList<String>> guideTitles = new ArrayList<>();
+    ArrayList<ArrayList<String>> communicateTitles = new ArrayList<>();
+    ArrayList<ArrayList<String>> creationTitles = new ArrayList<>();
+    try 
+    {
+        Class.forName("com.mysql.cj.jdbc.Driver"); // 查找数据库驱动类
+        Connection con = DriverManager.getConnection(conStr, "root", "YJX20000505");
+        Statement stmt = con.createStatement(); // 创建MySQL语句的对象
+        ResultSet rs = stmt.executeQuery("select distinct(postId),postTitle,postTime from post where postId in (select postId from post group by postId having postType = 0 order by avg(postTime) desc )");
+        ArrayList<String> strLine = new ArrayList<String>();
+        while(rs.next()) 
+        { 
+            strLine.add(rs.getString("postId"));
+            strLine.add(rs.getString("postTitle"));
+            strLine.add(rs.getString("postTime"));
+            guideTitles.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
+        }
+        rs = stmt.executeQuery("select distinct(postId),postTitle,postTime from post where postId in (select postId from post group by postId having postType = 1 order by avg(postTime) desc )");
+        while(rs.next()) 
+        { 
+            strLine.add(rs.getString("postId"));
+            strLine.add(rs.getString("postTitle"));
+            strLine.add(rs.getString("postTime"));
+            communicateTitles.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
+        }
+        rs = stmt.executeQuery("select distinct(postId),postTitle,postTime from post where postId in (select postId from post group by postId having postType = 2 order by avg(postTime) desc )");
+        while(rs.next()) 
+        { 
+            strLine.add(rs.getString("postId"));
+            strLine.add(rs.getString("postTitle"));
+            strLine.add(rs.getString("postTime"));
+            creationTitles.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
+        }
+        rs.close(); 
+        stmt.close(); 
+        con.close();
+    }
+    catch (Exception e)
+    {
+        msg = e.getMessage();
+    }
 %>
 <!Doctype html>
 <head>
@@ -20,10 +66,38 @@
     </div>
     <div id="textContainer">
         <div id="guide" class="titleBox">
+            <a class="gotoFileIndex" href='index.jsp'><h2>KoKoDaYo知网</h2></a>
+            <p>
+                <%for(int i = 0; i < guideTitles.size(); i++) {
+                %>    
+                    <a href='index.jsp'><%=guideTitles.get(i).get(1) + "     " + guideTitles.get(i).get(2)%></a><br>
+                <%
+                }
+                %>
+            </p>
         </div>
         <div id="communicate" class="titleBox">
+            <a class="gotoFileIndex" href='index.jsp'><h2>晨间逸话</h2></a>
+            <p>
+                <%for(int i = 0; i < communicateTitles.size(); i++) {
+                %>    
+                    <a href='index.jsp'><%=communicateTitles.get(i).get(1) + "     " + communicateTitles.get(i).get(2)%></a><br>
+                <%
+                }
+                %>
+            </p>
         </div>
         <div id="creation" class="titleBox">
+            <a class="gotoFileIndex" href='index.jsp'><h2>微型故事集</h2></a>
+            <p>
+                <%for(int i = 0; i < creationTitles.size(); i++) {
+                %>    
+                    <a href='index.jsp'><%=creationTitles.get(i).get(1) + "     " + creationTitles.get(i).get(2)%></a>
+<br>
+                <%
+                }
+                %>
+            </p>
         </div>
         <img id="postImg" src="./img/kokodayo_1.png">
     </div>   
