@@ -76,6 +76,38 @@ body {
     background: rgba(152,193,210,0.8);
     box-shadow: 5px 5px 5px darkgray;
 }
+/* 帖子区标题 */
+#textContainer h1 {
+    max-height: 10%;
+    margin: 0px auto 5px auto;
+    box-sizing: border-box;
+    text-align: center;
+}
+/* 分区标题 */
+#textContainer div h2 {
+    position: absolute;
+    margin: auto;
+    top: 2px;
+    left: 10px;
+    width: 95%;
+    border-bottom: solid black;
+}
+/* 链接 */
+#textContainer div p a {
+    text-decoration: none;
+}
+#textContainer div p a {
+    color: rgb(10, 99, 110);
+    text-decoration: none;
+    font-weight: bolder;
+}
+
+#textContainer div p {
+    position: absolute;
+    top: 5%;
+    left: 10px;
+}
+
 .titleBox::-webkit-scrollbar {
     width: 4px;
 }
