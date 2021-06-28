@@ -21,28 +21,52 @@
     <div id="textContainer">
         <div id="textBody">
         <%
-            boolean valid=true;
+            String conStr = "jdbc:mysql://172.18.187.253:3306/kokodayo18340184"
+                    + "?autoReconnect=true&useUnicode=true"
+					+ "&characterEncoding=UTF-8";
+            Class.forName("com.mysql.jdbc.Driver");
+            String postId = request.getParameter("pid");
+            boolean valid = (postId == null)?false:true;
+            String userName = "";
+            String title = "";
+            ArrayList<ArrayList<String>> fileList = new ArrayList<>();
+            ArrayList<String> strLine = new ArrayList<String>();
             if(valid)
             {
-                String title="hjhjhjhj";
-                String userName="45456456";
+                try
+                {
+                    Connection con = DriverManager.getConnection(conStr, "user", "123");
+                    Statement stmt = con.createStatement();
+                    String query = "select userName from kokoer where userId in ( select userId from post wher postId = " 
+                    + postId + ")";
+                    ResultSet rs = stmt.executeQuery(query);
+                    if(rs.next())
+                        userName = rs.getString("userName")
+                    query = "select postTitle from post where postId = " + postId;
+                    rs = stmt.executeQuery(query);
+                    if(rs.next())
+                        title = rs.getString("postTitle");
+                    query = "select fileURL,fileType from kokoFile where fileId in ( select fileId from postFile where postId = " + postId + ")";
+                    rs = stmt.executeQuery(query);
+                    while(rs.next())
+                    {
+                        strLine.add(rs.getString("fileURL"));
+                        strLine.add(rs.getString("fileType"));
+                        fileList.add((ArrayList<String>)strLine.clone());
+                        strLine.clear();
+                    }
+                    rs.close();
+                    stmt.close();
+                    con.close();
+                }
+                catch( Exception e )
+                {
+                    out.print(e.getMessage()+"<br>");
+                }
+            }
+            if(valid)
+            {
                 int i=0;
-                ArrayList< ArrayList< String > > fileList = new ArrayList<>();
-                ArrayList <String> add1 = new ArrayList<>();
-                add1.add("files/2_21554.txt");
-                add1.add("0");
-                ArrayList <String> add2 = new ArrayList<>();
-                add2.add("files/2_45273_Arknights.jpg");
-                add2.add("1");
-                ArrayList <String> add3 = new ArrayList<>();
-                add3.add("files/2_91650.txt");
-                add3.add("2");
-                fileList.add(add1);
-                fileList.add(add2);
-                fileList.add(add3);
-                fileList.add(add1);
-                fileList.add(add2);
-                fileList.add(add3);
                 out.print("<h1>"+title+"</h1>");
                 out.print("<h4>"+userName+"</h4>");
                 
