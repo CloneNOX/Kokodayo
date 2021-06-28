@@ -50,15 +50,20 @@ create table kokodayo18340184.kokoFile (
 create table kokodayo18340184.post (
 	postId int not null,
     userId int not null,
-    fileId int not null,
     postType int not null,
     postTitle varchar(100) not null,
     postTime datetime default CURRENT_TIMESTAMP(),
-    primary key (postId,userId,fileId),
-    foreign key (userId) references kokoer(userId),
-    foreign key (fileId) references kokoFile(fileId)
+    primary key (postId),
+    foreign key (userId) references kokoer(userId)
 ) engine = InnoDB;
 
+create table kokodayo18340184.postFile(
+	postId int not null,
+	fileId int not null,
+    primary key (postId,fileId),
+    foreign key(postId) references post(postId),
+    foreign key(fileId) references kokoFile(fileId)
+)engine = InnoDB;
 
 insert into kokodayo18340184.mission values
 ("1-7",6),
@@ -168,19 +173,19 @@ insert into kokodayo18340184.kokoFile values
 (2,"file/kroos_img1.png",0);
 
 insert into kokodayo18340184.post values
-(0,1,1,0,"Kokodayo",CURRENT_TIMESTAMP()),
-(1,1,2,0,"hihi",CURRENT_TIMESTAMP()),
-(2,1,1,0,"kroos",CURRENT_TIMESTAMP()),
-(3,1,2,0,"hello Dr.Ma",CURRENT_TIMESTAMP()),
-(4,1,1,0,"me~la~de",CURRENT_TIMESTAMP()),
-(5,2,2,1,"rhodes",CURRENT_TIMESTAMP()),
-(6,2,1,1,"Doctor!",CURRENT_TIMESTAMP()),
-(7,2,2,1,"ocean cat",CURRENT_TIMESTAMP()),
-(8,2,1,1,"rua",CURRENT_TIMESTAMP()),
-(9,2,2,1,"mostima",CURRENT_TIMESTAMP()),
-(10,3,1,2,"suzuran",CURRENT_TIMESTAMP()),
-(11,3,2,2,"warfarin",CURRENT_TIMESTAMP()),
-(12,3,1,2,"siege",CURRENT_TIMESTAMP()),
-(13,3,2,2,"mayer",CURRENT_TIMESTAMP()),
-(14,3,1,2,"Mi Na",CURRENT_TIMESTAMP()),
-(15,3,2,2,"lei wa ting!",CURRENT_TIMESTAMP());
+(0,1,0,"Kokodayo",CURRENT_TIMESTAMP()),
+(1,1,0,"hihi",CURRENT_TIMESTAMP()),
+(2,1,0,"kroos",CURRENT_TIMESTAMP()),
+(3,1,0,"hello Dr.Ma",CURRENT_TIMESTAMP()),
+(4,1,0,"me~la~de",CURRENT_TIMESTAMP()),
+(5,2,1,"rhodes",CURRENT_TIMESTAMP()),
+(6,2,1,"Doctor!",CURRENT_TIMESTAMP()),
+(7,2,1,"ocean cat",CURRENT_TIMESTAMP()),
+(8,2,1,"rua",CURRENT_TIMESTAMP()),
+(9,2,1,"mostima",CURRENT_TIMESTAMP()),
+(10,3,2,"suzuran",CURRENT_TIMESTAMP()),
+(11,3,2,"warfarin",CURRENT_TIMESTAMP()),
+(12,3,2,"siege",CURRENT_TIMESTAMP()),
+(13,3,2,"mayer",CURRENT_TIMESTAMP()),
+(14,3,2,"Mi Na",CURRENT_TIMESTAMP()),
+(15,3,2,"lei wa ting!",CURRENT_TIMESTAMP());
