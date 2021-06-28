@@ -56,6 +56,8 @@ body {
     position: relative;
     border: solid black;
     margin: 40px auto;
+    border-radius: 4px;
+    background-color: rgba(152,193,210,0.9);
 }
 #container h2{
     text-align: center;
