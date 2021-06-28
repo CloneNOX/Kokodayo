@@ -31,7 +31,9 @@
 				<option value="type0">KoKoDaYo知网</option>
 				<option value="type1">晨间逸话</option>
 				<option value="type2" >微型故事集</option>
-
+                </select>
+                <br><br>
+                标题：<input type="text" name="title"><br><br>
                 <textarea rows="10" cols="50" name="content" placeholder="请输入要发布的内容~"></textarea><br><br>
                 文件名：<input type="file" name="file" size="50" multiple="multiple"><br><br>
                 <input type="submit" name="sub" value="发布">
