@@ -3,6 +3,26 @@
 <%@ page import="org.apache.commons.fileupload.*"%>
 <%@ page import="org.apache.commons.fileupload.disk.*"%>
 <%@ page import="org.apache.commons.fileupload.servlet.*"%>
+<%
+	String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"; 
+	Class.forName("com.mysql.cj.jdbc.Driver"); 
+	Connection con = DriverManager.getConnection(conStr, "root", "YJX20000505");
+	Statement stmt = con.createStatement(); 
+	String query = "";
+	ResultSet rs = stmt.executeQuery("select max(postId) from post");
+	int postId = 0;
+	if(rs.next())
+	{
+		postId = Integer.parseInt(rs.getString("max(postId)")) + 1;
+	}
+	int fileId = 0;
+	rs = stmt.executeQuery("select max(fileId) from kokoFile");
+	if(rs.next())
+	{
+		fileId = Integer.parseInt(rs.getString("max(fileId)")) + 1;
+	}
+%>
 <html>
 	<head>
 		<title>Ko~Ko~Da~Yo~（三个失智博士的期末大作业）</title>
@@ -44,6 +64,7 @@
 						Random r = new Random();
 						String id="";
 						String type="";
+						String title="";
 						boolean valid=true;
 						for (int i = 0; i < items.size()&&valid; i++) {
 							FileItem fi = (FileItem) items.get(i);
@@ -63,6 +84,10 @@
 								else if(fi.getFieldName().equals("type"))
 								{
 									type = fi.getString("utf-8");
+								}
+								else if(fi.getFieldName().equals("title"))
+								{
+									title = fi.getString("utf-8");
 								}
 								else if(fi.getFieldName().equals("content")){
 									try{
@@ -86,7 +111,11 @@
 										fos.close();
 										fos = null;
 										System.gc();
-		
+										query = "insert into kokoFile values("+fileId.toString()+",files/"+name+",0)";
+										rs = stmt.executeQuery(query);
+										query = "insert into post values("+postId.toString()+","+id+","+fileId.toString()+","+type+","+title+",CURRENT_TIMESTAMP())";
+										rs = stmt.executeQuery(query);
+										fileId += 1;
 									}catch( IOException e ){
 										e.printStackTrace();
 									}
@@ -108,6 +137,14 @@
 										out.print("<img src=" + address + filename +" /> <br>");
 									else
 										out.print("<a href=" + address + filename + " >" + filename + "</a> <br>");*/
+									if(filename.endsWith(".png")||filename.endsWith(".jpg")||filename.endsWith(".jpeg")||filename.endsWith(".gif")||filename.endsWith(".bmp"))
+										query = "insert into kokoFile values("+fileId.toString()+",files/"+name+",1)";
+									else
+										query = "insert into kokoFile values("+fileId.toString()+",files/"+name+",2)";
+									rs = stmt.executeQuery(query);
+									query = "insert into post values("+postId.toString()+","+id+","+fileId.toString()+","+type+","+title+",CURRENT_TIMESTAMP())";
+									rs = stmt.executeQuery(query);
+									fileId += 1;
 								}
 							}
 						}
@@ -117,6 +154,9 @@
 							out.print("<button id=\"returnIndex\" type=\"button\" onclick=\"jump()\">返回</button>");
 						}
 					}
+					rs.close(); 
+					stmt.close(); 
+					con.close();
 				%>
 			</div>
 		</div>
