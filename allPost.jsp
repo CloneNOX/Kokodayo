@@ -1,8 +1,13 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
+    String uid = (String)session.getAttribute("uid");
+    String userName = "";
+    boolean login = false;
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
     String table = "";
+    //String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    //                + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
     String conStr = "jdbc:mysql://172.18.187.253:3306/kokodayo18340184"
                     + "?autoReconnect=true&useUnicode=true"
 					+ "&characterEncoding=UTF-8";
@@ -12,6 +17,7 @@
     try 
     {
         Class.forName("com.mysql.jdbc.Driver"); // 查找数据库驱动类
+        //Class.forName("com.mysql.cj.jdbc.Driver");
         Connection con = DriverManager.getConnection(conStr, "user", "123");
         Statement stmt = con.createStatement(); // 创建MySQL语句的对象
         ResultSet rs = stmt.executeQuery("select postId,postTitle,postTime from post where postType = 0 order by postTime desc");
@@ -42,6 +48,14 @@
             creationTitles.add((ArrayList<String>)strLine.clone());
             strLine.clear();
         }
+        if(uid != null) {
+            login = true;
+            rs = stmt.executeQuery("select userName from kokoer where userId=" + uid + ";");
+            if(rs.next())
+                userName = rs.getString("userName");
+            else
+                userName = "empty";
+        }
         rs.close(); 
         stmt.close(); 
         con.close();
@@ -69,39 +83,44 @@
             <h1>Ko~Ko~Da~Yo~</h1>
             <img id="titleKokodayo" src="./img/kokodayo_sit.png">
         </div>
+        <%if(login) {%>
+            <p id="userName">user：<%=userName%></p>
+        <%} else {%>
+            <a id="gotoLogin" href="./login.jsp">登录</a>
+        <%}%>
     </div>
     <div id="textContainer">
         <div id="guide" class="titleBox">
-            <a class="gotoFileIndex" href='index.jsp'><h2>KoKoDaYo知网</h2></a>
+            <a class="gotoFileIndex"><h2>KoKoDaYo知网</h2></a>
             <button class = "post" type = "button" onclick = "post()">发帖</button>
             <p>
                 <%for(int i = 0; i < guideTitles.size(); i++) {
                 %>    
-                    <a href='index.jsp'><%=guideTitles.get(i).get(1) + "     " + guideTitles.get(i).get(2)%></a><br>
+                    <a href='readPost.jsp?pid=<%=guideTitles.get(i).get(0)%>'><%=guideTitles.get(i).get(1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + guideTitles.get(i).get(2)%></a><br>
                 <%
                 }
                 %>
             </p>
         </div>
         <div id="communicate" class="titleBox">
-            <a class="gotoFileIndex" href='index.jsp'><h2>晨间逸话</h2></a>
+            <a class="gotoFileIndex"><h2>晨间逸话</h2></a>
             <button class = "post" type = "button" onclick = "post()">发帖</button>
             <p>
                 <%for(int i = 0; i < communicateTitles.size(); i++) {
                 %>    
-                    <a href='index.jsp'><%=communicateTitles.get(i).get(1) + "     " + communicateTitles.get(i).get(2)%></a><br>
+                    <a href='readPost.jsp?pid=<%=guideTitles.get(i).get(0)%>'><%=communicateTitles.get(i).get(1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + communicateTitles.get(i).get(2)%></a><br>
                 <%
                 }
                 %>
             </p>
         </div>
         <div id="creation" class="titleBox">
-            <a class="gotoFileIndex" href='index.jsp'><h2>微型故事集</h2></a>
+            <a class="gotoFileIndex"><h2>微型故事集</h2></a>
             <button class = "post" type = "button" onclick = "post()">发帖</button>
             <p>
                 <%for(int i = 0; i < creationTitles.size(); i++) {
                 %>    
-                    <a href='index.jsp'><%=creationTitles.get(i).get(1) + "     " + creationTitles.get(i).get(2)%></a><br>
+                    <a href='readPost.jsp?pid=<%=guideTitles.get(i).get(0)%>'><%=creationTitles.get(i).get(1) + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + creationTitles.get(i).get(2)%></a><br>
                 <%
                 }
                 %>

@@ -1,9 +1,40 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
+    String uid = (String)session.getAttribute("uid");
+    String userName = "";
+    boolean login = false;
     String path = request.getContextPath();
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
     String userIDContent=(String)session.getAttribute("uid");
+    //String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
+    //                + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8";
+    String conStr = "jdbc:mysql://172.18.187.253:3306/kokodayo18340184"
+                    + "?autoReconnect=true&useUnicode=true"
+                    + "&characterEncoding=UTF-8";
+    try 
+    {
+        Class.forName("com.mysql.jdbc.Driver"); // 查找数据库驱动类
+        //Class.forName("com.mysql.cj.jdbc.Driver");
+        Connection con = DriverManager.getConnection(conStr, "user", "123");
+        Statement stmt = con.createStatement(); // 创建MySQL语句的对象
+        ResultSet rs = stmt.executeQuery("select materialName,materialType,imgURL from material order by materialOrder");
+        if(uid != null) {
+            login = true;
+            rs = stmt.executeQuery("select userName from kokoer where userId=" + uid + ";");
+            if(rs.next())
+                userName = rs.getString("userName");
+            else
+                userName = "empty";
+        }
+        rs.close(); 
+        stmt.close(); 
+        con.close();
+    }
+    catch (Exception e)
+    {
+        msg = e.getMessage();
+    }
 %>
 
 <!Doctype html>
@@ -19,6 +50,11 @@
             <h1>Ko~Ko~Da~Yo~</h1>
             <img id="titleKokodayo" src="./img/kokodayo_sit.png">
         </div>
+        <%if(login) {%>
+            <p id="userName">user：<%=userName%></p>
+        <%} else {%>
+            <a id="gotoLogin" href="./login.jsp">登录</a>
+        <%}%>
     </div>
     <div id="textContainer">
         <div id="subtitle">

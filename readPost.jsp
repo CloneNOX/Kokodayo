@@ -1,8 +1,37 @@
-<%@ page language="java" import="java.util.*,java.sql.*,java.io.*" contentType="text/html; charset=utf-8"%>
+<%@ page pageEncoding="utf-8" language="java" contentType="text/html; charset=utf-8"%>
+<%@ page import="java.io.*, java.util.*,java.sql.*,org.apache.commons.io.*"%>
+<%@ page import="org.apache.commons.fileupload.*"%>
+<%@ page import="org.apache.commons.fileupload.disk.*"%>
+<%@ page import="org.apache.commons.fileupload.servlet.*"%>
 <% 
+    String uid = (String)session.getAttribute("uid");
+    String userName = "";
+    boolean login = false;
     String path = request.getContextPath();
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
+    String conStr = "jdbc:mysql://172.18.187.253:3306/kokodayo18340184"
+                  + "?autoReconnect=true&useUnicode=true"
+                  + "&characterEncoding=UTF-8";
+    Class.forName("com.mysql.jdbc.Driver");
+    Connection con = DriverManager.getConnection(conStr, "user", "123");
+    Statement stmt = con.createStatement();
+    ResultSet rs;
+    try 
+    {
+        if(uid != null) {
+            login = true;
+            rs = stmt.executeQuery("select userName from kokoer where userId=" + uid + ";");
+            if(rs.next())
+                userName = rs.getString("userName");
+            else
+                userName = "empty";
+        }
+    }
+    catch (Exception e)
+    {
+        msg = e.getMessage();
+    }
 %>
 <!Doctype html>
 <head>
@@ -22,17 +51,17 @@
             <h1>Ko~Ko~Da~Yo~</h1>
             <img id="titleKokodayo" src="./img/kokodayo_sit.png">
         </div>
+        <%if(login) {%>
+            <p id="userName">user：<%=userName%></p>
+        <%} else {%>
+            <a id="gotoLogin" href="./login.jsp">登录</a>
+        <%}%>
     </div>
     <div id="textContainer">
         <div id="textBody">
         <%
-            String conStr = "jdbc:mysql://172.18.187.253:3306/kokodayo18340184"
-                    + "?autoReconnect=true&useUnicode=true"
-					+ "&characterEncoding=UTF-8";
-            Class.forName("com.mysql.jdbc.Driver");
             String postId = request.getParameter("pid");
             boolean valid = (postId == null)?false:true;
-            String userName = "";
             String title = "";
             ArrayList<ArrayList<String>> fileList = new ArrayList<>();
             ArrayList<String> strLine = new ArrayList<String>();
@@ -40,11 +69,8 @@
             {
                 try
                 {
-                    Connection con = DriverManager.getConnection(conStr, "user", "123");
-                    Statement stmt = con.createStatement();
-                    String query = "select userName from kokoer where userId in ( select userId from post where postId = " 
-                    + postId + ")";
-                    ResultSet rs = stmt.executeQuery(query);
+                    String query = "select userName from kokoer where userId in ( select userId from post where postId = " + postId + ")";
+                    rs = stmt.executeQuery(query);
                     if(rs.next())
                         userName = rs.getString("userName");
                     query = "select postTitle from post where postId = " + postId;
@@ -68,14 +94,14 @@
                 {
                     out.print(e.getMessage()+"<br>");
                 }
-
                 int i=0;
                 out.print("<h1>"+title+"</h1>");
                 out.print("<h4>"+userName+"</h4>");
                 
                 if( fileList.size()>0&&fileList.get(0).get(1).equals("0") ){
                     i++;
-                    String fileName="../webapps/kokodayo/"+fileList.get(0).get(0);
+                    String direction = application.getRealPath("files") + System.getProperty("file.separator") ;
+                    String fileName = direction + fileList.get(0).get(0);
                     FileInputStream fis = new FileInputStream( fileName );   
                     InputStreamReader isr = new InputStreamReader(fis, "UTF-8");   
                     BufferedReader br = new BufferedReader(isr);   

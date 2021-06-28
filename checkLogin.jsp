@@ -11,10 +11,9 @@
         request.setCharacterEncoding("utf-8");
         userId = request.getParameter("userId");
         String password = request.getParameter("password");
-
         String conStr = "jdbc:mysql://172.18.187.253:3306/kokodayo18340184"
                     + "?autoReconnect=true&useUnicode=true"
-					+ "&characterEncoding=UTF-8";
+                    + "&characterEncoding=UTF-8";
         try 
         {
             Class.forName("com.mysql.jdbc.Driver"); // 查找数据库驱动类
