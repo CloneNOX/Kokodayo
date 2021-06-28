@@ -49,6 +49,27 @@ body {
     z-index: 1000;
 }
 /*=================================================*/
+
+#fileUpload {
+    position: relative;
+    width: 80%;
+    padding: 10px;
+    margin: 10px auto;
+    min-height: 50vh;
+    background: rgba(0, 0, 0, 0); 
+    text-align: center;
+}
+
+#fileUpload h3{
+    text-align: center;
+    position: relative;
+}
+
+#subtitle h1{
+    text-align: center;
+    position: relative;
+}
+
 /* 帖子部分 */
 .gotoFileIndex {
     color: black;
@@ -68,35 +89,8 @@ body {
     padding: 10px;
     margin: 10px auto;
     background: rgba(152,193,210,0.8);
-    box-shadow: 5px 5px 5px darkgray; 
-    
+    box-shadow: 5px 5px 5px darkgray;
 }
-#fileBody {
-    position: relative;
-    width: 80%;
-    padding: 10px;
-    margin: 10px auto;
-    min-height: 50vh;
-    background: rgba(0, 0, 0, 0); 
-    
-}
-
-#fileBody textarea {
-    width: 100%;
-    min-height: 35vh;
-    padding: 12px 20px;
-    box-sizing: border-box;
-    border: 2px solid #ccc;
-    border-radius: 4px;
-    background-color: #f8f8f8;
-    resize: none;
-}
-
-#subtitle h1{
-    text-align: center;
-    position: relative;
-}
-
 /* 帖子区标题 */
 
 .titleBox::-webkit-scrollbar {
