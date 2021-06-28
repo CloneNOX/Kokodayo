@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
     request.setCharacterEncoding("utf-8");
-    String jumpToAddMaterial = "./addMaterial.jsp";
+    String jumpToAddMaterial = "./report.jsp";
     String msg = ""; 
     String table = "";
     String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
@@ -88,7 +88,7 @@
                     for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("0")) {
                     %>    
-                        <a href='material.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp?materialName=<%=materials.get(i).get(0)%>'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -99,7 +99,7 @@
                     <%for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("1")) {
                     %>    
-                        <a href='material.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp?materialName=<%=materials.get(i).get(0)%>'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -110,7 +110,7 @@
                     <%for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("2")) {
                     %>    
-                        <a href='material.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp?materialName=<%=materials.get(i).get(0)%>'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }

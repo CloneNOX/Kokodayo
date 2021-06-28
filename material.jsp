@@ -1,7 +1,8 @@
-<%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" import="java.util.*,java.sql.*,java.sql.Date.*" contentType="text/html; charset=utf-8"%>
 <% 
     String path = request.getContextPath();
-    String jumpToAddMaterial = "./addMaterial.jsp";
+    String jumpToAddMaterial = "./report.jsp";
+    String chosenMaterial = request.getParameter("materialName");
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
     // 查询材料
@@ -27,6 +28,29 @@
     catch (Exception e)
     {
         msg = e.getMessage();
+    }
+    // 查询一个材料
+    ArrayList<ArrayList<String>> details = new ArrayList<>();
+    try {
+        Class.forName("com.mysql.cj.jdbc.Driver"); // 查找数据库驱动类
+        Connection con = DriverManager.getConnection(conStr, "root", "xsr990925,.LOL");
+        Statement stmt = con.createStatement(); // 创建MySQL语句的对象
+        ResultSet rs = stmt.executeQuery("select missionName,count(materialName) as missionNum,sum(materialNumber) as totalNum,sanity from report natural join mission  where materialName='" + chosenMaterial +"' group by MissionName;");
+        ArrayList<String> strLine = new ArrayList<String>();
+        while(rs.next()) 
+        { 
+            strLine.add(rs.getString("missionName"));// 任务名
+            strLine.add(rs.getString("missionNum"));// 任务总量
+            strLine.add(rs.getString("totalNum"));// 材料总量
+            Float missionNum = Float.parseFloat(rs.getString("missionNum"));
+            Float totalNum = Float.parseFloat(rs.getString("totalNum"));
+            strLine.add(new DecimalFormat("0.00%").format(totalNum / missionNum));// 平均掉落率
+            Float sanity = Float.parseFloat(rs.getString("sanity"));
+            strLine.add(new DecimalFormat("0.00").format(sanity / (totalNum / missionNum)));// 平均理智
+            strLine.add(rs.getString("sanity"));
+            materials.add((ArrayList<String>)strLine.clone());
+            strLine.clear();
+        }
     }
 %>
 <!Doctype html>
@@ -59,7 +83,7 @@
                     for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("0")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp?materialName=<%=materials.get(i).get(0)%>'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -70,7 +94,7 @@
                     <%for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("1")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp?materialName=<%=materials.get(i).get(0)%>'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -81,7 +105,7 @@
                     <%for(int i = 0; i < materials.size(); i++) {
                         if(materials.get(i).get(1).equals("2")) {
                     %>    
-                        <a href='index.jsp'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
+                        <a href='material.jsp?materialName=<%=materials.get(i).get(0)%>'><img src='<%=materials.get(i).get(2)%>' title='<%=materials.get(i).get(0)%>'></a>
                     <%
                         }
                     }
@@ -90,8 +114,15 @@
                 <img id="materialImg" src="img/kokodayo_2.png">
             </div>
         </div>
-        <div id="Shower">
-        
+        <div id="shower">
+            <div id="showerTitle">
+                <img id="showerTitleImg" src="img/<%=chosenMaterial%>.png">
+                <h2><%=chosenMaterial%> 统计结果</h2>
+            </div>
+            <table id="showerTable">
+
+            </table>
+            <img id="showerImg" src="./img/skadi_2.png">
         </div>
     </div>   
 </body>
