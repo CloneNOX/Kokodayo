@@ -44,9 +44,27 @@ body {
     position: absolute;
     width: 256px;
     height: 256px;
-    right: 0px;
+    right: 20px;
     bottom: -48px;
     z-index: 1000;
+}
+#userName {
+    position: absolute;
+    color: rgb(29, 122, 161);
+    right: 20px;
+    top: -20px;
+    z-index: 200;
+    text-align: right;
+}
+#gotoLogin {
+    position: absolute;
+    color: rgb(29, 122, 161);
+    right: 10px;
+    top:0px;
+    z-index: 1001;
+}
+#gotoLogin:visited {
+    color: rgb(29, 122, 161);
 }
 
 /* 主体内容 */
@@ -65,7 +83,11 @@ body {
     height: 85%;
     box-sizing: border-box;
 }
-#selector h1 {
+#selector div:nth-child(1) {
+    position: relative;
+}
+#selector div h1 {
+    height: 55px;
     border: solid black;
     border-radius: 4px;
     margin: 10px 4px;
@@ -76,15 +98,19 @@ body {
 }
 #add {
     position: absolute;
-    right: 5%;
-    top: 3%;
+    right: 20px;
+    top: 10px;
     width: 128px;
     height: 50px;
-    background: rgb(161,202,145);
+    background: rgb(91, 184, 93);
     border-radius: 25px;
     border: solid black;
     font-size: 1em;
     font-weight: bolder;
+}
+#add:hover{
+    cursor:pointer;
+    background: rgb(76, 153, 77);
 }
 #material {
     border: solid black;

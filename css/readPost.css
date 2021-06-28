@@ -44,9 +44,27 @@ body {
     position: absolute;
     width: 256px;
     height: 256px;
-    right: 0px;
+    right: 20px;
     bottom: -48px;
     z-index: 1000;
+}
+#userName {
+    position: absolute;
+    color: rgb(29, 122, 161);
+    right: 20px;
+    top: -20px;
+    z-index: 200;
+    text-align: right;
+}
+#gotoLogin {
+    position: absolute;
+    color: rgb(29, 122, 161);
+    right: 10px;
+    top:0px;
+    z-index: 1001;
+}
+#gotoLogin:visited {
+    color: rgb(29, 122, 161);
 }
 /*=================================================*/
 /* 帖子部分 */
