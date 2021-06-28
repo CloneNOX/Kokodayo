@@ -57,3 +57,12 @@ body {
     border: solid black;
     margin: 40px auto;
 }
+#container h2{
+    text-align: center;
+}
+#input {
+    height: 50px;
+    width: 300px;
+    position: relative;
+    margin:50px auto;
+}
