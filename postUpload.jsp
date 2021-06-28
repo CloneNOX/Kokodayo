@@ -4,10 +4,11 @@
 <%@ page import="org.apache.commons.fileupload.disk.*"%>
 <%@ page import="org.apache.commons.fileupload.servlet.*"%>
 <%
-	String conStr = "jdbc:mysql://localhost:3306/kokodayo18340184?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC"
-    + "&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8"; 
-	Class.forName("com.mysql.cj.jdbc.Driver"); 
-	Connection con = DriverManager.getConnection(conStr, "root", "YJX20000505");
+	String conStr = "jdbc:mysql://172.18.187.253:3306/kokodayo18340184"
+                    + "?autoReconnect=true&useUnicode=true"
+					+ "&characterEncoding=UTF-8";
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection con = DriverManager.getConnection(conStr, "user", "123");
 	Statement stmt = con.createStatement(); 
 	String query = "";
 	ResultSet rs = stmt.executeQuery("select max(postId) from post");
@@ -65,10 +66,10 @@
 						String id="";
 						String type="";
 						String title="";
+						int cnt=0;
 						boolean valid=true;
 						for (int i = 0; i < items.size()&&valid; i++) {
 							FileItem fi = (FileItem) items.get(i);
-
 							if (fi.isFormField()){
 								if(fi.getFieldName().equals("sub"))
 									continue;
@@ -111,40 +112,48 @@
 										fos.close();
 										fos = null;
 										System.gc();
-										query = "insert into kokoFile values("+fileId.toString()+",files/"+name+",0)";
-										rs = stmt.executeQuery(query);
-										query = "insert into post values("+postId.toString()+","+id+","+fileId.toString()+","+type+","+title+",CURRENT_TIMESTAMP())";
-										rs = stmt.executeQuery(query);
+										query = "insert into kokoFile values("+Integer.toString(fileId)+",\"files/"+name+"\",0)";
+										//out.print(query+"<br>");
+										cnt = stmt.executeUpdate(query);
+										query = "insert into post values("+Integer.toString(postId)+","+id+","+Integer.toString(fileId)+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
+										//out.print(query+"<br>");
+										cnt = stmt.executeUpdate(query);
 										fileId += 1;
-									}catch( IOException e ){
-										e.printStackTrace();
+									}catch( Exception e ){
+										out.print(e.getMessage()+"<br>");
 									}
 								}
 							}
 							else 
 							{
-								String randomIndex=(r.nextInt(100000)+1)+"";
-								DiskFileItem dfi = (DiskFileItem) fi;
-								filename = randomIndex+ "_" + FilenameUtils.getName(dfi.getName());
-								if (!dfi.getName().trim().equals("")){
-									//out.print("文件被上传到服务上的实际位置：");
-									String fileName = application.getRealPath("files")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-											+ System.getProperty("file.separator") 
-											+ id + "_" + randomIndex + "_" + FilenameUtils.getName(dfi.getName());
-									//out.print(new File(fileName).getAbsolutePath()+"<br>");
-									dfi.write(new File(fileName));
-									/*if(filename.endsWith(".png")||filename.endsWith(".jpg")||filename.endsWith(".jpeg")||filename.endsWith(".gif")||filename.endsWith(".bmp"))
-										out.print("<img src=" + address + filename +" /> <br>");
-									else
-										out.print("<a href=" + address + filename + " >" + filename + "</a> <br>");*/
-									if(filename.endsWith(".png")||filename.endsWith(".jpg")||filename.endsWith(".jpeg")||filename.endsWith(".gif")||filename.endsWith(".bmp"))
-										query = "insert into kokoFile values("+fileId.toString()+",files/"+name+",1)";
-									else
-										query = "insert into kokoFile values("+fileId.toString()+",files/"+name+",2)";
-									rs = stmt.executeQuery(query);
-									query = "insert into post values("+postId.toString()+","+id+","+fileId.toString()+","+type+","+title+",CURRENT_TIMESTAMP())";
-									rs = stmt.executeQuery(query);
-									fileId += 1;
+								try{
+									String randomIndex=(r.nextInt(100000)+1)+"";
+									DiskFileItem dfi = (DiskFileItem) fi;
+									filename = randomIndex+ "_" + FilenameUtils.getName(dfi.getName());
+									if (!dfi.getName().trim().equals("")){
+										//out.print("文件被上传到服务上的实际位置：");
+										String fileName = application.getRealPath("files")                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
+												+ System.getProperty("file.separator") 
+												+ id + "_" + randomIndex + "_" + FilenameUtils.getName(dfi.getName());
+										//out.print(new File(fileName).getAbsolutePath()+"<br>");
+										dfi.write(new File(fileName));
+										/*if(filename.endsWith(".png")||filename.endsWith(".jpg")||filename.endsWith(".jpeg")||filename.endsWith(".gif")||filename.endsWith(".bmp"))
+											out.print("<img src=" + address + filename +" /> <br>");
+										else
+											out.print("<a href=" + address + filename + " >" + filename + "</a> <br>");*/
+										if(filename.endsWith(".png")||filename.endsWith(".jpg")||filename.endsWith(".jpeg")||filename.endsWith(".gif")||filename.endsWith(".bmp"))
+											query = "insert into kokoFile values("+Integer.toString(fileId)+",\"files/"+filename+"\",1)";
+										else
+											query = "insert into kokoFile values("+Integer.toString(fileId)+",\"files/"+filename+"\",2)";
+										//out.print(query+"<br>");
+										cnt = stmt.executeUpdate(query);
+										query = "insert into post values("+Integer.toString(postId)+","+id+","+Integer.toString(fileId)+","+type+",\""+title+"\",CURRENT_TIMESTAMP())";
+										//out.print(query+"<br>");
+										cnt = stmt.executeUpdate(query);
+										fileId += 1;
+									}
+								}catch( Exception e ){
+									out.print(e.getMessage()+"<br>");
 								}
 							}
 						}

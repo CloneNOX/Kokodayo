@@ -28,9 +28,9 @@
             <form name="fileupload" action="postUpload.jsp" method="post" enctype="multipart/form-data" multiple="multiple">
                 <input type="hidden" name="userID" value="<%=userIDContent%>">
                 板块：<select name="type">
-				<option value="type0">KoKoDaYo知网</option>
-				<option value="type1">晨间逸话</option>
-				<option value="type2" >微型故事集</option>
+				<option value="0">KoKoDaYo知网</option>
+				<option value="1">晨间逸话</option>
+				<option value="2" >微型故事集</option>
                 </select>
                 <br><br>
                 标题：<input type="text" name="title"><br><br>
@@ -42,4 +42,3 @@
         <img id="postImg" src="img/kokodayo_1.png">
     </div>
 </body>
-
