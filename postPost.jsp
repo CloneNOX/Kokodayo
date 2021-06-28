@@ -3,7 +3,7 @@
     String path = request.getContextPath();
     request.setCharacterEncoding("utf-8");
     String msg = ""; 
-    String userIDContent=request.getParameter("uid");
+    String userIDContent=(String)session.getAttribute("uid");
 %>
 
 <!Doctype html>
