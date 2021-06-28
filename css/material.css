@@ -51,21 +51,21 @@ body {
 
 /* 主体内容 */
 #container {
-    height: 85vh;
+    height: 80vh;
     box-sizing: border-box;
     position: relative;
 }
 /*=================================================*/
 /* 材料掉落部分 */
-#materialContainer {
+#selector {
     position: absolute;
     left: 1%;
     top: 0%;
-    width: 48%;
-    height: 83%;
+    width: 30%;
+    height: 85%;
     box-sizing: border-box;
 }
-#materialContainer h1 {
+#selector h1 {
     border: solid black;
     border-radius: 4px;
     margin: 10px 4px;
@@ -128,113 +128,4 @@ body {
 #material p {
     color: white;
     font-size: 1.2em;
-}
-/*=================================================*/
-/* 帖子部分 */
-.gotoFileIndex {
-    color: black;
-    text-decoration: none;
-}
-.gotoFileIndex:visited {
-    color: black;
-    text-decoration: none;
-}
-#textContainer {
-    position: absolute;
-    left: 50%;
-    top: 0px;
-    width: 49%;
-    height: 96%;
-    box-sizing: border-box;
-    border: solid black;
-    border-radius: 4px;
-    padding: 10px;
-    margin: 10px auto;
-    background: rgba(152,193,210,0.8);
-    box-shadow: 5px 5px 5px darkgray;
-}
-/* 帖子区标题 */
-#textContainer h1 {
-    max-height: 10%;
-    margin: 0px auto 5px auto;
-    box-sizing: border-box;
-    text-align: center;
-}
-/* 分区标题 */
-#textContainer div h2 {
-    position: absolute;
-    margin: auto;
-    top: 2px;
-    left: 10px;
-    width: 95%;
-    border-bottom: solid black;
-}
-/* 链接 */
-#textContainer div p a {
-    text-decoration: none;
-}
-#textContainer div p a {
-    color: rgb(10, 99, 110);
-    text-decoration: none;
-    font-weight: bolder;
-}
-#guide {
-    height: 30%;
-    margin: 5px auto;
-    box-sizing: border-box;
-    border: black solid;
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    background: linear-gradient(to right,rgba(226,154,128,0.8), rgba(253,229,172,0.6));
-}
-#guideTitleSpan {
-    font-size: 0.5em;
-    text-decoration:line-through;
-}
-#guide p {
-    position: absolute;
-    top: 15%;
-    left: 30px;
-}
-#communicate {
-    height: 30%;
-    margin: 5px auto;
-    box-sizing: border-box;
-    border: black solid;
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    background: linear-gradient(to right,rgba(226,154,128,0.8), rgba(253,229,172,0.6));
-}
-#communicateTitleSpan {
-    font-size: 0.5em;
-}
-#communicate p {
-    position: absolute;
-    top: 15%;
-    left: 30px;
-}
-#creation {
-    height: 30%;
-    margin: 5px auto;
-    box-sizing: border-box;
-    border: black solid;
-    position: relative;
-    border-radius: 24px;
-    overflow: hidden;
-    background: linear-gradient(to right,rgba(226,154,128,0.8), rgba(253,229,172,0.6));
-}
-#creation p {
-    position: absolute;
-    top: 15%;
-    left: 30px;
-}
-#postImg {
-    position: absolute;
-    width: 360px;
-    height: 360px;
-    z-index: -1;
-    right: 0%;
-    bottom: 4%;
 }
