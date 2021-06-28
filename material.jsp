@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*,java.sql.*,java.Float.*" contentType="text/html; charset=utf-8"%>
+<%@ page language="java" import="java.util.*,java.sql.*" contentType="text/html; charset=utf-8"%>
 <% 
     String path = request.getContextPath();
     String jumpToAddMaterial = "./report.jsp";
@@ -44,13 +44,13 @@
             strLine.add(rs.getString("missionName"));// 任务名
             strLine.add(rs.getString("missionNum"));// 任务总量
             strLine.add(rs.getString("totalNum"));// 材料总量
-            float missionNum = Float.parseFLoat("18"/*rs.getString("missionNum")*/);
-            float totalNum = Float.parseFLoat("24"/*rs.getString("totalNum")*/);
-            strLine.add(String.format("%.2f", totalNum / missionNum).toString());// 平均掉落率
-            float sanity = Float.parseFLoat(rs.getString("sanity"));
-            strLine.add(String.format("%.2f", sanity / (totalNum / missionNum)).toString());// 平均理智
-            strLine.add(rs.getString("sanity"));
-            materials.add((ArrayList<String>)strLine.clone());
+            int missionNum = Integer.parseInt(rs.getString("missionNum"));
+            int totalNum = Integer.parseInt(rs.getString("totalNum"));
+            strLine.add(String.format("%.2f", (float)totalNum / (float)missionNum).toString());// 平均掉落率
+            int sanity = Integer.parseInt(rs.getString("sanity"));
+            strLine.add(String.format("%.2f", (float)sanity / (float)(totalNum / (float)missionNum)).toString());// 平均理智
+            strLine.add(rs.getString("sanity"));// 消耗理智
+            details.add((ArrayList<String>)strLine.clone());
             strLine.clear();
         }
     }
@@ -126,7 +126,21 @@
                 <h2><%=chosenMaterial%> 统计结果</h2>
             </div>
             <table id="showerTable">
-                <tr><th>作战</th><th></th></tr>
+                <tr><th>作战</th> <th>掉落数</th> <th>样本数</th> <th>期望掉落率</th> <th>单个平均理智</th> <th>关卡消耗理智</th></tr>
+                <%
+                    for(int i=0; i < details.size(); i++) {
+                %>
+                    <tr>
+                        <td><%=details.get(i).get(0)%></td>
+                        <td><%=details.get(i).get(1)%></td>
+                        <td><%=details.get(i).get(2)%></td>
+                        <td><%=details.get(i).get(3)%></td>
+                        <td><%=details.get(i).get(4)%></td>
+                        <td><%=details.get(i).get(5)%></td>
+                    </tr>
+                <%
+                    }
+                %>
             </table>
             <img id="showerImg" src="./img/skadi_2.png">
         </div>
