@@ -101,8 +101,7 @@
                 if( fileList.size()>0&&fileList.get(0).get(1).equals("0") ){
                     i++;
                     String direction = application.getRealPath("files") + System.getProperty("file.separator") ;
-                    String fileName = direction + fileList.get(0).get(0);
-                    FileInputStream fis = new FileInputStream( fileName );   
+                    FileInputStream fis = new FileInputStream( direction + fileList.get(0).get(0) );   
                     InputStreamReader isr = new InputStreamReader(fis, "UTF-8");   
                     BufferedReader br = new BufferedReader(isr);   
                     String result="";
@@ -124,9 +123,9 @@
                     String fileName=fileList.get(i).get(0);
                     String fileType=fileList.get(i).get(1);
                     if(fileType.equals("1"))
-                    	out.print("<img src=" + fileName +" /> <br>");
+                    	out.print("<img src=\"files/" + fileName +"\" /> <br>");
                     else
-                        out.print("<a href="  + fileName + " >" + fileName + "</a> <br>");
+                        out.print("<a href=\"files/" + fileName +"\" >" + fileName + "</a> <br>");
                 } 
                 out.print("</div>");
             }
